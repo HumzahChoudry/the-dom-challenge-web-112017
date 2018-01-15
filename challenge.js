@@ -1,3 +1,5 @@
+const store = {}
+
 document.addEventListener('DOMContentLoaded', function(event) {
 
   // COUNTER INCREMENTING
@@ -21,15 +23,33 @@ document.addEventListener('DOMContentLoaded', function(event) {
      counter.innerHTML = --num
    })
 
+
+   // LIKE BUTTON
    const hButton = document.getElementById('<3');
    hButton.addEventListener('click', function(event) {
-    let num = parseInt(counter.innerHTML)
-    const like = document.createElement('p')
     const pTags = document.getElementsByTagName('p')
+    const number = parseInt(counter.innerHTML)
 
-    like.innerHTML = `1 LIKES ON ${num}`
-    document.appendChild(like)
+    if (store[number] === undefined) {
+      store[number] = 1
+    } else {
+      ++store[number]
+    }
 
+    document.querySelector('ul').remove()
+    const list = document.createElement('ul')
+    document.body.appendChild(list)
+
+    for (const element in store) {
+      let listItem = document.createElement('li')
+      listItem.innerHTML = `${element} with ${store[element]}`
+      list.appendChild(listItem)
+    }
    })
+
+
+
+
+
 
 })
